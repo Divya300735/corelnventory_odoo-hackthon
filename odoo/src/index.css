@@ -1,0 +1,256 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary-50: #fdf2f8;
+  --color-primary-100: #fce7f3;
+  --color-primary-200: #fbcfe8;
+  --color-primary-300: #f9a8d4;
+  --color-primary-400: #f472b6;
+  --color-primary-500: #ec4899;
+  --color-primary-600: #db2777;
+  --color-primary-700: #be185d;
+  --color-primary-800: #9d174d;
+  --color-primary-900: #831843;
+}
+
+@layer base {
+  :root {
+    --background: 230 25% 98%;
+    --foreground: 230 30% 10%;
+    
+    --card: 0 0% 100%;
+    --card-foreground: 230 30% 10%;
+    
+    --border: 220 20% 90%;
+    --input: 220 20% 90%;
+    
+    --primary: 327 73% 58%;
+    --primary-foreground: 0 0% 100%;
+    
+    --secondary: 220 20% 96%;
+    --secondary-foreground: 230 30% 10%;
+    
+    --accent: 262 83% 58%;
+    --accent-foreground: 0 0% 100%;
+    
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+    
+    --success: 142 71% 45%;
+    --success-foreground: 0 0% 100%;
+    
+    --warning: 38 92% 50%;
+    --warning-foreground: 0 0% 100%;
+
+    --radius: 1.5rem;
+  }
+
+  .dark {
+    --background: 234 33% 7%;
+    --foreground: 230 40% 98%;
+    
+    --card: 231 22% 11%;
+    --card-foreground: 230 40% 98%;
+    
+    --border: 231 20% 18%;
+    --input: 231 20% 18%;
+    
+    --primary: 327 73% 58%;
+    --primary-foreground: 0 0% 100%;
+    
+    --secondary: 231 20% 14%;
+    --secondary-foreground: 230 40% 98%;
+    
+    --accent: 262 83% 58%;
+    --accent-foreground: 0 0% 100%;
+    
+    --destructive: 346 84% 61%;
+    --destructive-foreground: 0 0% 100%;
+
+    --success: 142 71% 45%;
+    --success-foreground: 0 0% 100%;
+  }
+}
+
+@layer base {
+  * {
+    border-color: hsl(var(--border));
+  }
+  body {
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+    font-feature-settings: "rlig" 1, "calt" 1;
+    -webkit-font-smoothing: antialiased;
+    transition: color 300ms, background-color 300ms;
+  }
+  
+  ::selection {
+    background-color: hsl(var(--primary) / 0.4);
+    color: #ffffff;
+  }
+
+  /* Dropdown Focus and Visibility Fix */
+  select, input, textarea {
+    color: hsl(var(--foreground)) !important;
+    background-color: transparent !important;
+    border-width: 1px;
+    border-color: hsl(var(--border)) !important;
+  }
+
+  /* The actual drop-down list items */
+  option {
+    background-color: hsl(var(--card)) !important;
+    color: hsl(var(--foreground)) !important;
+  }
+
+  .dark select option {
+    background-color: hsl(var(--card)) !important;
+    color: white !important;
+  }
+
+  ::placeholder {
+    color: hsl(var(--foreground) / 0.4) !important;
+  }
+}
+
+.glass {
+  background: hsl(var(--card) / 0.7);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid hsl(var(--border) / 0.8);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.dark .glass {
+  background: hsl(var(--card) / 0.6);
+  border: 1px solid hsl(var(--border) / 0.6);
+}
+
+/* Premium Border System */
+.border-glow {
+  position: relative;
+  border: 1px solid hsl(var(--border));
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.border-glow:hover {
+  border-color: transparent;
+  box-shadow: 0 0 20px -5px hsl(var(--primary) / 0.3);
+  transform: translateY(-2px);
+}
+
+.border-glow:hover::after {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  padding: 1px;
+  border-radius: inherit;
+  background: linear-gradient(135deg, #f472b6, #a855f7, #6366f1);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.border-fixed {
+  position: relative;
+  border: 1px solid transparent;
+  background: hsl(var(--card));
+  background-clip: padding-box;
+}
+
+.border-fixed::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  padding: 1.5px;
+  border-radius: inherit;
+  background: linear-gradient(135deg, #f472b6, #a855f7, #6366f1);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* UI Layering: Premium Modal Surface */
+.modal-surface {
+  position: relative;
+  background-color: hsl(var(--card));
+  border: 1px solid transparent;
+  background-clip: padding-box;
+  box-shadow: 0 50px 100px -20px rgba(0, 0, 0, 0.25), 0 30px 60px -30px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+}
+
+.modal-surface::before {
+  content: '';
+  position: absolute;
+  inset: -1.5px;
+  padding: 1.5px;
+  border-radius: inherit;
+  background: linear-gradient(135deg, #f472b6, #a855f7, #6366f1);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.dark .modal-surface {
+  background-color: hsl(var(--card) / 0.98);
+  box-shadow: 0 50px 100px -20px rgba(0, 0, 0, 0.7), 0 30px 60px -30px rgba(0, 0, 0, 0.8);
+}
+
+.backdrop-premium {
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.dark .backdrop-premium {
+  background: rgba(0, 0, 0, 0.8);
+}
+
+.text-gradient {
+  background: linear-gradient(135deg, #f472b6 0%, #a855f7 50%, #6366f1 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--border));
+  border-radius: 20px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--primary) / 0.5);
+}
+
+.transition-base {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.premium-shadow {
+  box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 10px 10px -5px rgb(0 0 0 / 0.04);
+}
+
+.dark .premium-shadow {
+  box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.5);
+}
+
